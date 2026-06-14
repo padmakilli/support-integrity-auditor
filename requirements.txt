@@ -1,6 +1,6 @@
-# CPU build of torch — smaller and correct for free CPU hosting (Streamlit Cloud / HF Spaces).
-# On Google Colab, torch+CUDA is already installed, so for TRAINING you do not reinstall it.
---extra-index-url https://download.pytorch.org/whl/cpu
+# IMPORTANT: deploy on Python 3.11 (these pins have no wheels for 3.13/3.14).
+# Streamlit Cloud: set Python 3.11 in the app's Advanced settings.
+# HF Spaces: add  python_version: "3.11"  to the Space README front-matter.
 torch==2.3.1
 transformers==4.44.2
 sentencepiece==0.2.0
@@ -12,7 +12,4 @@ scikit-learn==1.5.1
 streamlit==1.37.1
 matplotlib==3.9.2
 
-# --- extras only needed for TRAINING (run on Colab/GPU), not for the hosted app ---
-# accelerate==0.33.0
-# --- optional embedding signal for the ablation ---
-# sentence-transformers==3.0.1
+# extras only for TRAINING on Colab (GPU): accelerate==0.33.0
