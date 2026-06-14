@@ -1,10 +1,18 @@
-pandas==2.2.2
-numpy==1.26.4
-scikit-learn==1.5.1
+# CPU build of torch — smaller and correct for free CPU hosting (Streamlit Cloud / HF Spaces).
+# On Google Colab, torch+CUDA is already installed, so for TRAINING you do not reinstall it.
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.3.1
 transformers==4.44.2
 sentencepiece==0.2.0
 protobuf==5.27.2
-accelerate==0.33.0
-sentence-transformers==3.0.1   # optional: embedding-cluster signal for the ablation
-streamlit==1.37.1              # Stage 4 web app
+huggingface_hub==0.24.6
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.5.1
+streamlit==1.37.1
+matplotlib==3.9.2
+
+# --- extras only needed for TRAINING (run on Colab/GPU), not for the hosted app ---
+# accelerate==0.33.0
+# --- optional embedding signal for the ablation ---
+# sentence-transformers==3.0.1
