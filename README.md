@@ -1,3 +1,15 @@
+---
+title: Support Integrity Auditor
+emoji: 🎫
+colorFrom: indigo
+colorTo: green
+sdk: streamlit
+sdk_version: 1.37.1
+app_file: app.py
+python_version: "3.11"
+pinned: false
+---
+
 # Support Integrity Auditor (SIA)
 
 SIA reads customer-support tickets and finds the ones whose **assigned priority does not match how serious the ticket really is**. There are two kinds of problem it looks for:
@@ -24,7 +36,7 @@ We standardise and blend these into one severity score, then turn it into a Low/
 This labelling is done once and its settings are saved to `calibration.json`, so a single new ticket is later scored exactly the same way the training tickets were.
 
 **Stage 2 — Train a real classifier.**
-We fine-tune **DeBERTa-v3-small** on the Stage 1 labels. Its input is the ticket text plus two pieces of structured metadata (the channel and a customer-tier guess from the email domain). Because real mismatches are rare, we use a **class-weighted loss** so the model does not ignore them. The model is what makes the final decision, and because it learns *meaning* (not just keywords) it can catch tricky tickets that have no obvious urgency words.
+We fine-tune **DeBERTa-v3-xsmall** on the Stage 1 labels (a small, memory-light model chosen so the app fits free hosting; `deberta-v3-small` or `base` also work if you have more RAM). Its input is the ticket text plus two pieces of structured metadata (the channel and a customer-tier guess from the email domain). Because real mismatches are rare, we use a **class-weighted loss** so the model does not ignore them. The model is what makes the final decision, and because it learns *meaning* (not just keywords) it can catch tricky tickets that have no obvious urgency words.
 
 **Stage 3 — Explain every decision (Evidence Dossier).**
 For each flagged ticket the system produces a structured dossier. The strict rule is that **every piece of evidence must come straight from a real ticket field** — keyword evidence is a word that actually appears in the ticket, and the resolution-time value is recomputed from the real timestamps. A built-in **validator** re-checks every item and throws away any dossier it cannot trace back to the source. This makes invented ("hallucinated") evidence impossible by design.

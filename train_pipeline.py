@@ -81,7 +81,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--csv", required=True)
     ap.add_argument("--out", default="artifacts")
-    ap.add_argument("--model", default="microsoft/deberta-v3-small")
+    ap.add_argument("--model", default="microsoft/deberta-v3-xsmall")
     ap.add_argument("--epochs", type=int, default=4)
     ap.add_argument("--max_len", type=int, default=256)
     ap.add_argument("--bs", type=int, default=16)
