@@ -1,0 +1,13 @@
+Ticket ID,Customer Email,Product Purchased,Ticket Type,Ticket Subject,Ticket Description,Ticket Priority,Ticket Channel,First Response Time,Time to Resolution
+1,a@corp.com,GitHub Enterprise,Technical issue,Production outage data loss,Our production database is down and we appear to have lost data after the last sync. This is blocking all customers.,Low,Email,2024-01-01 09:00:00,2024-01-03 18:00:00
+2,b@gmail.com,Canva,Billing inquiry,How do I change my avatar,Just wondering how to update my profile picture whenever you get a chance no rush,Critical,Chat,2024-01-01 10:00:00,2024-01-01 10:20:00
+3,c@corp.com,AWS,Technical issue,Security breach unauthorized access,We detected unauthorized access to our account and a possible security breach. Please escalate immediately.,Medium,Phone,2024-01-02 08:00:00,2024-01-02 20:00:00
+4,d@gmail.com,Spotify,Product inquiry,Feature request dark mode,Minor suggestion it would be nice to have a dark mode cosmetic improvement,High,Social media,2024-01-02 11:00:00,2024-01-02 12:00:00
+5,e@corp.com,Salesforce,Billing inquiry,Charged twice this month,I was double charged this month and need a refund this is unacceptable,High,Email,2024-01-03 09:00:00,2024-01-03 15:00:00
+6,f@gmail.com,Slack,Technical issue,App crash on login,The app crashes immediately when I try to login it is broken and not working,Medium,Chat,2024-01-03 10:00:00,2024-01-04 10:00:00
+7,g@corp.com,Zoom,Product inquiry,Documentation typo,Found a small typo in the docs just feedback no rush,Critical,Email,2024-01-04 09:00:00,2024-01-04 09:30:00
+8,h@gmail.com,Netflix,Technical issue,Cannot access account,I cannot access my account and the password reset is not working urgent,Low,Phone,2024-01-04 08:00:00,2024-01-05 08:00:00
+9,i@corp.com,Jira,Refund request,Refund for annual plan,I would like a refund for my annual plan please,Medium,Email,2024-01-05 09:00:00,2024-01-05 14:00:00
+10,j@gmail.com,Figma,Product inquiry,How to export to PDF,How do I export my design to PDF format,Medium,Chat,2024-01-05 10:00:00,2024-01-05 10:45:00
+11,k@corp.com,Okta,Technical issue,Severe latency in production,We are seeing severe latency in production blocking our deployment deadline,High,Email,2024-01-06 09:00:00,2024-01-06 22:00:00
+12,l@gmail.com,Dropbox,Billing inquiry,Question about pricing,Just a question about your pricing tiers no urgency,High,Social media,2024-01-06 11:00:00,2024-01-06 11:30:00
