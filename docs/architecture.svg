@@ -47,7 +47,7 @@
 <rect x="300" y="512" width="720" height="78" rx="14" fill="url(#g4)" filter="url(#soft)"/>
 <rect x="300" y="512" width="6" height="78" rx="3" fill="#ffffff" opacity="0.85"/>
 <text x="326" y="544" fill="#ffffff" font-size="18" font-weight="700">5  FINE-TUNED CLASSIFIER</text>
-<text x="326" y="569" fill="#f1f5f9" font-size="13" opacity="0.95">DeBERTa-v3-small + class-weighted loss   (input = text + channel + customer tier)</text>
+<text x="326" y="569" fill="#f1f5f9" font-size="13" opacity="0.95">DeBERTa-v3-xsmall + class-weighted loss   (input = text + channel + customer tier)</text>
 <line x1="660.0" y1="602" x2="660.0" y2="614" stroke="#94a3b8" stroke-width="2.5" marker-end="url(#arr)"/>
 <rect x="312" y="628" width="720" height="78" rx="14" fill="#6d28d9" opacity="0.55"/>
 <rect x="300" y="616" width="720" height="78" rx="14" fill="url(#g5)" filter="url(#soft)"/>
