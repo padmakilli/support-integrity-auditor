@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 720" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<rect width="1180" height="720" fill="#0b1220"/>
+<defs><marker id="sa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#cbd5e1"/></marker></defs>
+<text x="590.0" y="44" fill="#e2e8f0" font-size="28" font-weight="700" text-anchor="middle">Support Integrity Auditor — Request Sequence</text>
+<text x="590.0" y="72" fill="#94a3b8" font-size="14" text-anchor="middle">how one audit request flows through the system</text>
+<line x1="90.0" y1="184" x2="90.0" y2="680" stroke="#334155" stroke-width="1.5"/>
+<rect x="24.0" y="136" width="132" height="48" rx="10" fill="#3b82f6" opacity="0.95"/>
+<text x="90.0" y="158" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">User</text>
+<line x1="290.0" y1="184" x2="290.0" y2="680" stroke="#334155" stroke-width="1.5"/>
+<rect x="224.0" y="136" width="132" height="48" rx="10" fill="#64748b" opacity="0.95"/>
+<text x="290.0" y="158" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Streamlit App</text>
+<line x1="490.0" y1="184" x2="490.0" y2="680" stroke="#334155" stroke-width="1.5"/>
+<rect x="424.0" y="136" width="132" height="48" rx="10" fill="#0ea5a4" opacity="0.95"/>
+<text x="490.0" y="158" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Inference</text>
+<text x="490.0" y="173" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">(score_dataframe)</text>
+<line x1="690.0" y1="184" x2="690.0" y2="680" stroke="#334155" stroke-width="1.5"/>
+<rect x="624.0" y="136" width="132" height="48" rx="10" fill="#22c55e" opacity="0.95"/>
+<text x="690.0" y="158" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Calibration</text>
+<text x="690.0" y="173" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">(Stage 1)</text>
+<line x1="890.0" y1="184" x2="890.0" y2="680" stroke="#334155" stroke-width="1.5"/>
+<rect x="824.0" y="136" width="132" height="48" rx="10" fill="#fb7185" opacity="0.95"/>
+<text x="890.0" y="158" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Classifier</text>
+<text x="890.0" y="173" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">(DeBERTa)</text>
+<line x1="1090.0" y1="184" x2="1090.0" y2="680" stroke="#334155" stroke-width="1.5"/>
+<rect x="1024.0" y="136" width="132" height="48" rx="10" fill="#a78bfa" opacity="0.95"/>
+<text x="1090.0" y="158" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Dossier +</text>
+<text x="1090.0" y="173" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">Validator</text>
+<line x1="90.0" y1="226" x2="290.0" y2="226" stroke="#cbd5e1" stroke-width="1.8"  marker-end="url(#sa)"/>
+<text x="190.0" y="218" fill="#e2e8f0" font-size="12" text-anchor="middle">submit ticket / upload CSV</text>
+<line x1="290.0" y1="265.45454545454544" x2="490.0" y2="265.45454545454544" stroke="#cbd5e1" stroke-width="1.8"  marker-end="url(#sa)"/>
+<text x="390.0" y="257.45454545454544" fill="#e2e8f0" font-size="12" text-anchor="middle">score_dataframe(df)</text>
+<line x1="490.0" y1="304.9090909090909" x2="690.0" y2="304.9090909090909" stroke="#cbd5e1" stroke-width="1.8"  marker-end="url(#sa)"/>
+<text x="590.0" y="296.9090909090909" fill="#e2e8f0" font-size="12" text-anchor="middle">apply_calibration — signals → fused → severity</text>
+<line x1="690.0" y1="344.3636363636363" x2="490.0" y2="344.3636363636363" stroke="#cbd5e1" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#sa)"/>
+<text x="590.0" y="336.3636363636363" fill="#e2e8f0" font-size="12" text-anchor="middle">inferred severity, delta, mismatch_type</text>
+<line x1="490.0" y1="383.81818181818176" x2="890.0" y2="383.81818181818176" stroke="#cbd5e1" stroke-width="1.8"  marker-end="url(#sa)"/>
+<text x="690.0" y="375.81818181818176" fill="#e2e8f0" font-size="12" text-anchor="middle">tokenised text (+ channel, tier)</text>
+<line x1="890.0" y1="423.2727272727272" x2="490.0" y2="423.2727272727272" stroke="#cbd5e1" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#sa)"/>
+<text x="690.0" y="415.2727272727272" fill="#e2e8f0" font-size="12" text-anchor="middle">judgment + confidence</text>
+<line x1="490.0" y1="462.72727272727263" x2="1090.0" y2="462.72727272727263" stroke="#cbd5e1" stroke-width="1.8"  marker-end="url(#sa)"/>
+<text x="790.0" y="454.72727272727263" fill="#e2e8f0" font-size="12" text-anchor="middle">build_dossier for model-flagged rows</text>
+<path d="M1090.0 502.1818181818181 C 1020.0 496.1818181818181, 1020.0 524.181818181818, 1090.0 520.181818181818" fill="none" stroke="#cbd5e1" stroke-width="1.8" marker-end="url(#sa)"/>
+<text x="1012.0" y="510.1818181818181" fill="#e2e8f0" font-size="12" text-anchor="end">validate every evidence item → trace to field</text>
+<line x1="1090.0" y1="541.6363636363635" x2="490.0" y2="541.6363636363635" stroke="#cbd5e1" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#sa)"/>
+<text x="790.0" y="533.6363636363635" fill="#e2e8f0" font-size="12" text-anchor="middle">validated dossier  (untraceable → dropped)</text>
+<line x1="490.0" y1="581.090909090909" x2="290.0" y2="581.090909090909" stroke="#cbd5e1" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#sa)"/>
+<text x="390.0" y="573.090909090909" fill="#e2e8f0" font-size="12" text-anchor="middle">predictions + dossiers</text>
+<line x1="290.0" y1="620.5454545454545" x2="90.0" y2="620.5454545454545" stroke="#cbd5e1" stroke-width="1.8" stroke-dasharray="6 4" marker-end="url(#sa)"/>
+<text x="190.0" y="612.5454545454545" fill="#e2e8f0" font-size="12" text-anchor="middle">judgment + Evidence Dossier + dashboard</text>
+</svg>
