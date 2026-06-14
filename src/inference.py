@@ -5,6 +5,7 @@ exists in exactly one place and cannot drift between the two.
 """
 from __future__ import annotations
 
+import os
 from typing import Optional
 import numpy as np
 import pandas as pd
@@ -17,14 +18,29 @@ from .dossier import build_dossier, validate_dossier, restime_refs, Hallucinatio
 # --- model loading + scoring --------------------------------------------------
 
 def load_artifacts(model_dir: str, calibration_path: str):
-    """Load the fine-tuned model, tokenizer and Stage 1 calibration."""
+    """Load the fine-tuned model, tokenizer and Stage 1 calibration.
+
+    model_dir may be a local folder OR a Hugging Face repo id (e.g.
+    'username/sia-deberta'). If calibration_path is not a local file, the
+    calibration is downloaded from that same Hugging Face repo. This is what
+    makes free hosting work without committing large weights to GitHub.
+    """
     import torch  # local import so non-model code (tests, plotting) stays light
     from transformers import AutoModelForSequenceClassification, AutoTokenizer
     tok = AutoTokenizer.from_pretrained(model_dir)
     model = AutoModelForSequenceClassification.from_pretrained(model_dir)
     model.eval()
-    calib = Calibration.load(calibration_path)
+    calib = _load_calibration(model_dir, calibration_path)
     return model, tok, calib
+
+
+def _load_calibration(model_dir: str, calibration_path: str) -> Calibration:
+    if os.path.exists(calibration_path):
+        return Calibration.load(calibration_path)
+    # not local -> fetch calibration.json from the same HF Hub repo as the model
+    from huggingface_hub import hf_hub_download
+    fname = os.path.basename(calibration_path) or "calibration.json"
+    return Calibration.load(hf_hub_download(repo_id=model_dir, filename=fname))
 
 
 def score_dataframe(df: pd.DataFrame, model, tok, calib: Calibration,
