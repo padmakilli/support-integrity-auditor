@@ -29,7 +29,7 @@ from .signals import SIGNAL_FUNCS, SEVERITY_ORDER, ORDER_TO_LABEL, resolution_ho
 @dataclass
 class FusionConfig:
     signals: list[str] = field(default_factory=lambda: ["rule", "restime"])
-    weights: dict[str, float] = field(default_factory=lambda: {"rule": 0.7, "restime": 0.3})
+    weights: dict[str, float] = field(default_factory=lambda: {"rule": 0.65, "restime": 0.35})
     mismatch_delta: int = 2          # |inferred - assigned| >= this => mismatch
     match_marginal: bool = True      # calibrate inferred mix to the assigned mix
 

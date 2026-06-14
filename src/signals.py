@@ -70,25 +70,46 @@ def _parse_dt(series: pd.Series) -> pd.Series:
 def resolution_hours(df: pd.DataFrame) -> pd.Series:
     """Hours from first response to resolution. NaN where unparseable/implausible.
 
-    Single source of truth so the resolution-time signal and the dossier
-    evidence report the exact same number.
+    Supports two dataset shapes: a single numeric ``Resolution_Time_Hours``
+    column, or the two-timestamp form (``First Response Time`` ->
+    ``Time to Resolution``). Single source of truth so the resolution-time
+    signal and the dossier evidence report the exact same number.
     """
+    if "Resolution_Time_Hours" in df.columns:
+        h = pd.to_numeric(df["Resolution_Time_Hours"], errors="coerce")
+        return h.where((h >= 0) & (h < 24 * 60))
     fr = _parse_dt(df.get("First Response Time", pd.Series(index=df.index, dtype=object)))
     tr = _parse_dt(df.get("Time to Resolution", pd.Series(index=df.index, dtype=object)))
     hours = (tr - fr).dt.total_seconds() / 3600.0
     return hours.where((hours >= 0) & (hours < 24 * 60))
 
 
-def resolution_time_severity(df: pd.DataFrame, longer_is_severe: bool = True) -> pd.Series:
-    """Resolution duration used as a severity proxy.
+RES_BUCKET_EDGES = [3, 6, 10, 16, 24, 36, 54, 80, 110]  # hours -> 10 fixed buckets
 
-    Direction is configurable and intentionally contestable: the README
-    ablation is where you justify the sign. Default assumes severe issues are
-    more complex and take longer. Rows without timestamps abstain (NaN).
+
+def resolution_bucket(df: pd.DataFrame) -> pd.Series:
+    """Discretise resolution hours into fixed buckets (0-9), NaN where missing.
+
+    Fixed edges (not data-fitted) so a single ticket buckets the same way at
+    inference. The label signal AND the model feature both use this exact
+    bucket, so the model can fully reconstruct the resolution contribution.
     """
-    hours = resolution_hours(df)
+    h = resolution_hours(df)
+    out = pd.Series(np.nan, index=df.index)
+    m = h.notna()
+    out[m.values] = np.searchsorted(RES_BUCKET_EDGES, h[m].values).astype(float)
+    return out
+
+
+def resolution_time_severity(df: pd.DataFrame, longer_is_severe: bool = True) -> pd.Series:
+    """Resolution-time severity proxy, as a discrete bucket (see resolution_bucket).
+
+    Independent of the text/lexicon signal, so the two fuse as two genuinely
+    independent signals. Rows without a resolution time abstain (NaN).
+    """
+    b = resolution_bucket(df)
     sign = 1.0 if longer_is_severe else -1.0
-    return pd.Series(sign * hours.values, index=df.index, name="sig_restime")
+    return pd.Series(sign * b.values, index=df.index, name="sig_restime")
 
 
 # --- Optional Signal 3: embedding-cluster severity ----------------------------

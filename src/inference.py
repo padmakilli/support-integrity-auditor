@@ -10,7 +10,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from .features import build_input_text
+from .features import build_input_text, normalize_columns
 from .pseudo_label import Calibration, apply_calibration
 from .dossier import build_dossier, validate_dossier, restime_refs, HallucinationError
 
@@ -47,6 +47,7 @@ def score_dataframe(df: pd.DataFrame, model, tok, calib: Calibration,
                     max_len: int = 256, batch_size: int = 32) -> pd.DataFrame:
     """Add Stage 1 fields + model judgment + confidence to every row."""
     import torch
+    df = normalize_columns(df)
     labelled = apply_calibration(df, calib)            # inferred severity, delta, type
     texts = build_input_text(labelled).tolist()
 
