@@ -13,6 +13,7 @@ the paths in the sidebar.
 """
 from __future__ import annotations
 
+import os
 import json
 import numpy as np
 import pandas as pd
@@ -27,16 +28,30 @@ from src.dossier import build_dossier, validate_dossier, restime_refs, Hallucina
 st.set_page_config(page_title="Support Integrity Auditor", layout="wide")
 
 
+def _setting(key, default):
+    """Read a setting from Streamlit secrets (Streamlit Cloud) or an env var
+    (Hugging Face Spaces), falling back to a local-dev default."""
+    try:
+        if key in st.secrets:
+            return st.secrets[key]
+    except Exception:
+        pass
+    return os.getenv(key, default)
+
+
 @st.cache_resource(show_spinner="Loading model...")
 def get_artifacts(model_dir, calib_path):
     return load_artifacts(model_dir, calib_path)
 
 
 # ---- sidebar -----------------------------------------------------------------
+# Set SIA_MODEL (e.g. "your-username/sia-deberta") and SIA_CALIBRATION
+# ("calibration.json") as a secret/variable on your host. Locally these default
+# to the trained artifacts, so there is nothing to type during a demo.
 st.sidebar.title("Support Integrity Auditor")
 st.sidebar.caption("Detects when a ticket's priority does not match its real severity.")
-model_dir = st.sidebar.text_input("Model folder", "artifacts/model")
-calib_path = st.sidebar.text_input("Calibration file", "artifacts/calibration.json")
+model_dir = st.sidebar.text_input("Model folder or HF repo", _setting("SIA_MODEL", "artifacts/model"))
+calib_path = st.sidebar.text_input("Calibration file", _setting("SIA_CALIBRATION", "artifacts/calibration.json"))
 
 try:
     model, tok, calib = get_artifacts(model_dir, calib_path)

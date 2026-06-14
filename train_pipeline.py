@@ -31,7 +31,7 @@ from sklearn.utils.class_weight import compute_class_weight
 from transformers import (AutoModelForSequenceClassification, AutoTokenizer,
                           Trainer, TrainingArguments)
 
-from src.features import build_input_text
+from src.features import build_input_text, normalize_columns
 from src.pseudo_label import FusionConfig, generate_pseudo_labels
 
 THRESHOLDS = {"accuracy": 0.83, "macro_f1": 0.82, "recall_min": 0.78}
@@ -93,7 +93,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
 
     # 1-2. pseudo-labels + saved calibration
-    df = pd.read_csv(args.csv)
+    df = normalize_columns(pd.read_csv(args.csv))
     cfg = FusionConfig(mismatch_delta=args.mismatch_delta)
     df, diag, calib = generate_pseudo_labels(df, cfg)
     calib.save(out / "calibration.json")
