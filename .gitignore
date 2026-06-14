@@ -1,0 +1,18 @@
+# data and trained artifacts (do not commit large/private files)
+data/*.csv
+artifacts/
+predictions/
+*.whl
+
+# python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# os / editor
+.DS_Store
+.idea/
+.vscode/
